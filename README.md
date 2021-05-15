@@ -9,4 +9,8 @@ Trabalho da disciplina de MATA77-Programacão Funcional, referente ao game: Colo
 - Otávio Augusto Cartaxo Araújo;
 - Jônatas da Silva Santos
 
-Entregável 1:
+## Primeiro entregavel
+
+### Mapa
+
+![Mapa do Labirinto](labirinto.svg)
