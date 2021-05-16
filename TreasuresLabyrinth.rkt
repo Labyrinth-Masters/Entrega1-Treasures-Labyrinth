@@ -204,6 +204,22 @@
      (cons oeste (lambda () sala4)))))
 (salva-elemento! 'sala2 sala2)
 
+(define sala3
+  (local
+    "Você se encontra em um salão com um monstro e saídas para o Oeste e Norte."
+    (list 'Monstro)
+    (list
+     (cons lutar)
+     (cons voltar) ; TODO: Mapear a sala anterior
+     (cons north (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala8)
+                    "O monstro está bloqueando o caminho!"))
+     (cons north (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala2)
+                    "O monstro está bloqueando o caminho!")))))
+(salva-elemento! 'sala3 sala3)
+
+
     
 
 ;; ============================================================
