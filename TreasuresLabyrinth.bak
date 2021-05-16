@@ -51,13 +51,13 @@
 (define entrar (verbo (list 'entrar 'entre) "entrar" #f))
 (armazenar-elemento! 'entrar entrar)
 
-(define sair (verbo (list 'sair 'saia) "sair" #f))
+(define sair (verb (list 'sair 'saia) "sair" #f))
 (armazenar-elemento! 'sair sair)
 
-(define voltar (verbo (list 'voltar 'retroceder) "voltar" #f))
+(define voltar (verb (list 'voltar 'retroceder) "voltar" #f))
 (armazenar-elemento! 'voltar voltar)
 
-(define lutar (verbo (list 'lutar 'enfrentar 'lute) "lutar" #f))
+(define lutar (verb (list 'lutar 'enfrentar 'lute) "lutar" #f))
 (armazenar-elemento! 'lutar lutar)
 
 (define pegar (verbo (list 'pegar 'apanhar 'levar) "pegar" #t))
@@ -66,7 +66,7 @@
 (define ler (verbo (list 'ler 'ver) "ler" #t))
 (armazenar-elemento! 'ler ler)
 
-(define abrir (verbo (list 'abrir 'destrancar) "abrir" #t))
+(define abrir (verb (list 'abrir 'destrancar) "abrir" #t))
 (armazenar-elemento! 'abrir abrir)
 
 (define quit (verbo (list 'quit 'exit) "quit" #f))
