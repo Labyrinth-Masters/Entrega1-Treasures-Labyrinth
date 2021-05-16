@@ -118,33 +118,33 @@
 
 
 (define artefato1
-  (thing 'artefato1 
+  (coisa 'artefato1 
          #f 
          (list (cons pegar 
                     (lambda () 
                       (if (tem-coisa? artefato1)
                         "Você já possui esse artefato1."
                         (begin 
-                          (take-thing! artefato1)
+                          (tem-coisa! artefato1)
                           "Você agora tem esse artefato1.")))))))
 (armazenar-elemento! 'artefato1 artefato1)
 
 (define monstro1
-  (thing 'monstro1
+  (coisa 'monstro1
          'vivo 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (thing-state monstro1) 'vivo) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-state monstro1) 'vivo) (tem-coisa? artefato1))
                         (begin
-                          (set-thing-state! monstro1 'morto)
+                          (set-coisa-state! monstro1 'morto)
                           "Você conseguiu derrotar o monstro!")
-                        (if (eq? (thing-state monstro1) 'morto)
+                        (if (eq? (coisa-state monstro1) 'morto)
                             "Esse monstro já foi derrotado!"
                             "Você não possui o artefato certo para lutar contra esse monstro")))))))
 (armazenar-elemento! 'monstro1 monstro1)
 
 (define dica-sala1
-  (thing 'dica-sala1
+  (coisa 'dica-sala1
          #f
          (list (cons ler 
                     (lambda () 
@@ -152,7 +152,7 @@
 (armazenar-elemento! 'dica-sala1 dica-sala1)
 
 (define portal1
-  (thing 'portal1
+  (coisa 'portal1
          #f
          (list (cons usar 
                     (lambda () sala1))
@@ -161,13 +161,13 @@
 (armazenar-elemento! 'portal-sala1 portal-sala1)
 
 (define tesouro
-  (thing 'tesouro
+  (coisa 'tesouro
          #f
          (list
           (cons pegar 
                 (lambda ()
                   (begin
-                    (take-thing! tesouro)
+                    (tem-coisa! tesouro)
                     "Você ganhou!"))))))
 (armazenar-elemento! 'tesouro tesouro)
 
