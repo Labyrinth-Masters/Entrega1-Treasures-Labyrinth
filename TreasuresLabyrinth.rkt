@@ -240,6 +240,18 @@
      (cons sul   (lambda () sala10)))))
 (salva-elemento! 'sala7 sala3)
 
+(define sala9
+  (local
+    "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste."
+    (list 'Portal) ; TODO: Adiconar PORTAL a lista de coisas
+    ; Usar Portal(31), Ir para Leste(8)
+    (cons leste (lambda () sala8))
+    (cons portal (lambda () sala31))))
+(salva-elemento! 'sala9 sala9)
+
+
+    
+
 ;; ============================================================
 ;; Game state
 
