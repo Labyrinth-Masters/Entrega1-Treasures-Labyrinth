@@ -12,6 +12,7 @@
                [estado #:mutable] ; qualquer valor
                acoes))    ; lista de pares verbo--coisa
 
+; TODO: ADICIONAR A COR DO CORREDOR
 (struct local (desc         ; string
                [coisas #:mutable] ; lista de coisas
                acoes))    ; lista pares verbo--coisa
@@ -181,43 +182,10 @@
                     "You win!"))))))
 (record-element! 'trophy trophy)
 
-;; Places ----------------------------------------
-;; Each place handles a set of non-transitive verbs.
+;; Lugares ----------------------------------------
+;; Cada lugar lida com um conjunto de verbos não-transitivos
 
-(define meadow
-  (place
-   "You're standing in a meadow. There is a house to the north."
-   (list)
-   (list
-    (cons north 
-          (lambda () house-front))
-    (cons south 
-          (lambda () desert)))))
-(record-element! 'meadow meadow)
 
-(define house-front
-  (place
-   "You are standing in front of a house."
-   (list door)
-   (list
-    (cons in 
-          (lambda ()
-            (if (eq? (thing-state door) 'open)
-                room
-                "The door is not open.")))
-    (cons south (lambda () meadow)))))
-(record-element! 'house-front house-front)
-
-(define desert
-  (place
-   "You're in a desert. There is nothing for miles around."
-   (list cactus key)
-   (list
-    (cons north (lambda () meadow))
-    (cons south (lambda () desert))
-    (cons east (lambda () desert))
-    (cons west (lambda () desert)))))
-(record-element! 'desert desert)
 
 (define room
   (place
@@ -225,6 +193,18 @@
    (list trophy)
    (list (cons out (lambda () house-front)))))
 (record-element! 'room room)
+
+
+(define sala2
+  (local
+    "Você se encontra em um salão com um pedestal no meio e saídas para o Leste e Oeste."
+    (list artefato1)
+    (list
+     (cons leste (lambda () sala3))
+     (cons oeste (lambda () sala4)))))
+(salva-elemento! 'sala2 sala2)
+
+    
 
 ;; ============================================================
 ;; Game state
