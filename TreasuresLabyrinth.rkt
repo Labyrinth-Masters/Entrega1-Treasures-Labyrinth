@@ -219,8 +219,26 @@
                     "O monstro está bloqueando o caminho!")))))
 (salva-elemento! 'sala3 sala3)
 
-
+(define sala5
+  (local
+    "Você se encontra em um salão vazio com saídas para o Norte, Leste e Sul."
+    (list ())
+    (list
+     (cons norte (lambda () sala6))
+     (cons leste (lambda () sala26))
+     (cons sul   (lambda () sala4)))))
+(salva-elemento! 'sala5 sala5)
     
+
+(define sala7
+  (local
+    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    (list ())
+    (list
+     ; Ir para Oeste(6), Ir para Sul(10)
+     (cons oeste (lambda () sala6))
+     (cons sul   (lambda () sala10)))))
+(salva-elemento! 'sala7 sala3)
 
 ;; ============================================================
 ;; Game state
