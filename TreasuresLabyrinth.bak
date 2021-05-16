@@ -51,13 +51,13 @@
 (define entrar (verbo (list 'entrar 'entre) "entrar" #f))
 (armazenar-elemento! 'entrar entrar)
 
-(define sair (verbo (list 'sair 'saia) "sair" #f))
+(define sair (verb (list 'sair 'saia) "sair" #f))
 (armazenar-elemento! 'sair sair)
 
-(define voltar (verbo (list 'voltar 'retroceder) "voltar" #f))
+(define voltar (verb (list 'voltar 'retroceder) "voltar" #f))
 (armazenar-elemento! 'voltar voltar)
 
-(define lutar (verbo (list 'lutar 'enfrentar 'lute) "lutar" #f))
+(define lutar (verb (list 'lutar 'enfrentar 'lute) "lutar" #f))
 (armazenar-elemento! 'lutar lutar)
 
 (define pegar (verbo (list 'pegar 'apanhar 'levar) "pegar" #t))
@@ -66,7 +66,7 @@
 (define ler (verbo (list 'ler 'ver) "ler" #t))
 (armazenar-elemento! 'ler ler)
 
-(define abrir (verbo (list 'abrir 'destrancar) "abrir" #t))
+(define abrir (verb (list 'abrir 'destrancar) "abrir" #t))
 (armazenar-elemento! 'abrir abrir)
 
 (define quit (verbo (list 'quit 'exit) "quit" #f))
@@ -120,65 +120,22 @@
 (define artefato1
   (thing 'artefato1 
          #f 
-         (list (cons pegar 
+         (list (cons get 
                     (lambda () 
-                      (if (tem-coisa? artefato1)
+                      (if (have-thing? artefato1)
                         "Você já possui esse artefato1."
                         (begin 
                           (take-thing! artefato1)
                           "Você agora tem esse artefato1.")))))))
 (armazenar-elemento! 'artefato1 artefato1)
 
-(define monstro1
-  (thing 'monstro1
-         'vivo 
-         (list (cons lutar 
-                    (lambda () 
-                      (if (and (eq? (thing-state monstro1) 'vivo) (tem-coisa? artefato1))
-                        (begin
-                          (set-thing-state! monstro1 'morto)
-                          "Você conseguiu derrotar o monstro!")
-                        (if (eq? (thing-state monstro1) 'morto)
-                            "Esse monstro já foi derrotado!"
-                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
-(armazenar-elemento! 'monstro1 monstro1)
-
-(define dica-sala1
-  (thing 'dica-sala1
-         #f
-         (list (cons ler 
-                    (lambda () 
-                        "Use os dedos para jogar.")))))
-(armazenar-elemento! 'dica-sala1 dica-sala1)
-
-(define portal1
-  (thing 'portal1
-         #f
-         (list (cons usar 
-                    (lambda () sala1))
-               (cons entrar 
-                    (lambda () sala1)))))
-(armazenar-elemento! 'portal-sala1 portal-sala1)
-
-(define tesouro
-  (thing 'tesouro
-         #f
-         (list
-          (cons pegar 
-                (lambda ()
-                  (begin
-                    (take-thing! tesouro)
-                    "Você ganhou!"))))))
-(armazenar-elemento! 'tesouro tesouro)
-
-#| exemplo de coisa:
 (define door
   (thing 'door
          #f
          (list
           (cons open 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       (begin
                         (set-thing-state! door 'open)
                         "The door is now unlocked and open.")
@@ -199,20 +156,30 @@
          (list
           (cons get 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       "You already have the key."
                       (begin
                         (take-thing! key)
                         "You now have the key."))))
           (cons put 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       (begin
                         (drop-thing! key)
                         "You have dropped the key.")
                       "You don't have the key."))))))
 (record-element! 'key key)
-|#
+
+(define trophy
+  (thing 'trophy
+         #f
+         (list
+          (cons get 
+                (lambda ()
+                  (begin
+                    (take-thing! trophy)
+                    "You win!"))))))
+(record-element! 'trophy trophy)
 
 ;; Places ----------------------------------------
 ;; Each place handles a set of non-transitive verbs.
@@ -246,9 +213,7 @@
    "You're in a desert. There is nothing for miles around."
    (list cactus key)
    (list
-    (cons north (if (eq? (thing-state monstro1) 'morto)
-                    (lambda () meadow)
-                    "O monstro está bloqueando o caminho!"))
+    (cons north (lambda () meadow))
     (cons south (lambda () desert))
     (cons east (lambda () desert))
     (cons west (lambda () desert)))))
@@ -271,7 +236,7 @@
 (define current-place meadow) ; place
 
 ;; Fuctions to be used by verb responses:
-(define (tem-coisa? t)
+(define (have-thing? t)
   (memq t stuff))
 
 (define (take-thing! t) 
