@@ -118,7 +118,7 @@
 
 
 (define artefato1
-  (thing 'artefato1 
+  (coisa 'artefato1 
          #f 
          (list (cons get 
                     (lambda () 
@@ -130,7 +130,7 @@
 (armazenar-elemento! 'artefato1 artefato1)
 
 (define door
-  (thing 'door
+  (coisa 'door
          #f
          (list
           (cons open 
@@ -151,7 +151,7 @@
 (record-element! 'door door)
 
 (define key
-  (thing 'key
+  (coisa 'key
          #f
          (list
           (cons get 
@@ -171,7 +171,7 @@
 (record-element! 'key key)
 
 (define trophy
-  (thing 'trophy
+  (coisa 'trophy
          #f
          (list
           (cons get 
