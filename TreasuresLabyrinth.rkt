@@ -249,7 +249,14 @@
     (cons portal (lambda () sala31))))
 (salva-elemento! 'sala9 sala9)
 
-
+(define sala11
+  (local
+    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    (list ())
+    ; Ir para Oeste(10), Ir para Sul(12)
+    (cons oeste (lambda () sala10))
+    (cons sul   (lambda () sala12))))
+(salva-elemento! 'sala11 sala11)
     
 
 ;; ============================================================
