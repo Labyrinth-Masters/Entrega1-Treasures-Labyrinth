@@ -406,6 +406,31 @@
 )
 (salva-elemento! 'sala31 sala31)
 
+(define sala33
+  (local
+    "Você se encontra em um salão com escrituras no chão e saída para o Norte."
+    "Laranja"
+    (list dica)
+    (list
+      (cons ler)
+      (cons norte (lambda () sala32))
+    )
+  )
+)
+(salva-elemento! 'sala33 sala33)
+
+(define sala35
+  (local
+    "Você se encontra em um salão com um pergaminho e saída para o Sul."
+    "Laranja"
+    (list dica)
+    (list
+      (cons ler)
+      (cons sul (lambda () sala34))
+    )
+  )
+)
+(salva-elemento! 'sala35 sala35)
 
 
 ;; ============================================================
