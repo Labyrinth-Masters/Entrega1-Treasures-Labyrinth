@@ -253,9 +253,9 @@
     "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste."
     "Azul"
     (list 'Portal) ; TODO: Adiconar PORTAL a lista de coisas
-    ; Usar Portal(31), Ir para Leste(8)
-    (cons leste (lambda () sala8))
-    (cons portal (lambda () sala31))))
+    list(
+      (cons leste (lambda () sala8))
+      (cons portal (lambda () sala31)))))
 (salva-elemento! 'sala9 sala9)
 
 (define sala11
@@ -264,8 +264,9 @@
     "Vermelho"
     (list ())
     ; Ir para Oeste(10), Ir para Sul(12)
-    (cons oeste (lambda () sala10))
-    (cons sul   (lambda () sala12))))
+    list(
+      (cons oeste (lambda () sala10))
+      (cons sul   (lambda () sala12)))))
 (salva-elemento! 'sala11 sala11)
 
 (define sala13
@@ -273,8 +274,10 @@
     "Você se encontra em um salão vazio com saídas para o Leste e Norte."
     "Vermelho"
     (list ())
-    (list leste (lambda () sala12))
-    (list norte (lamda () sala14))
+    list(
+      (cons leste (lambda () sala12))
+      (cons norte (lamda () sala14))
+    )  
   )
 )
 (salva-elemento! 'sala13 sala13)
@@ -284,8 +287,10 @@
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
     "Laranja"
     (list ())
-    (list oeste (lambda () sala14))
-    (list sul (lamda () sala16))
+    list(
+      (cons oeste (lambda () sala14))
+      (cons sul (lamda () sala16))
+    )
   )
 )
 (salva-elemento! 'sala15 sala15)
@@ -297,8 +302,10 @@
     "Laranja"
     (list artefato1)
     ; ir para Norte (18), ir para Oeste (16)
-    (list norte (lambda () sala18))
-    (list oeste (lamda () sala16))
+    list(
+      (cons norte (lambda () sala18))
+      (cons oeste (lamda () sala16))
+    )
   )
 )
 (salva-elemento! sala17 sala17)
@@ -309,8 +316,9 @@
     "Laranja"
     (list ()))
     ; ir para Sul (20), ir para Leste (18)
-    (list sul (lambda () sala20))
-    (list leste (lamda () sala18))
+    list(
+      (cons sul (lambda () sala20))
+      (cons leste (lamda () sala18))
   )
 )
 (salva-elemento! 'sala19 sala19)
@@ -321,7 +329,9 @@
     "Verde"
     (list tesouro)) ; TODO: Adicionar tesouro a lista de coisas?
     ; ir para Sul (20), ir para Leste (18)
-    (list sair (cons (lambda () sala1)))
+    (list 
+     (cons sair (cons (lambda () sala1)))
+    )
   )
 )
 (salva-elemento! 'sala21 sala21)
@@ -332,8 +342,10 @@
     "Amarelo"
     (list ()))
     ; ir para Oeste (24), ir para Norte (22)
-    (list norte (lambda () sala22))
-    (list oeste (lamda () sala24))
+    (list
+     (cons norte (lambda () sala22))
+     (cons oeste (lamda () sala24))
+    )
   )
 )
 (salva-elemento! 'sala23 sala23)
@@ -360,9 +372,10 @@
     "Vermelho"
     (list teleporte))
     ; ir para Norte (26), usar Teleporte (16)
-    (list norte (lambda () sala26))
-    (list teleporte (lambda () sala16))
-    
+    (list 
+      (cons norte (lambda () sala26))
+      (cons teleporte (lambda () sala16))
+    )
   )
 )
 (salva-elemento! 'sala27 sala27)
