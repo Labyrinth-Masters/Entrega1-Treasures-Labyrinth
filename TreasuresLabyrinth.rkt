@@ -71,8 +71,8 @@
 (define abrir (verbo (list 'abrir 'destrancar) "abrir" #t))
 (armazenar-elemento! 'abrir abrir)
 
-(define quit (verbo (list 'quit 'exit) "quit" #f))
-(armazenar-elemento! 'quit quit)
+(define sair (verbo (list 'sair 'q) "quit" #f))
+(armazenar-elemento! 'sair sair)
 
 (define olhar (verbo (list 'olhar 'mostrar) "olhar" #f))
 (armazenar-elemento! 'olhar olhar)
@@ -307,6 +307,15 @@
   )
 )
 
+(define sala21
+  (local 
+    "Sala do tesouro. Você venceu o jogo."
+    "Verde"
+    (list tesouro)) ; TODO: Adicionar tesouro a lista de coisas?
+    ; ir para Sul (20), ir para Leste (18)
+    (list sair (cons (lambda () sala1)))
+  )
+)
 
 ;; ============================================================
 ;; Game state
