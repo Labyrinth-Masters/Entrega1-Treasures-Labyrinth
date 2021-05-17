@@ -280,9 +280,19 @@
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
     "Laranja"
     (list ())
-    ; Ir para Oeste(14), Ir para Sul(16)
     (list oeste (lambda () sala14))
     (list sul (lamda () sala16))
+  )
+)
+
+(define sala17
+  (local 
+    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: oeste e norte."
+    "Laranja"
+    (list artefato1)
+    ; ir para Norte (18), ir para Oeste (16)
+    (list norte (lambda () sala18))
+    (list oeste (lamda () sala16))
   )
 )
 
