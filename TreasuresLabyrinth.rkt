@@ -315,6 +315,18 @@
       (cons sul   (lambda () sala12)))))
 (armazena-elemento! 'sala11 sala11)
 
+(define sala12
+  (local
+    "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Norte."
+    "Vermelho"
+    (list dica)
+    list(
+      (cons ler)
+      (cons norte (lambda () sala11))
+      (cons oeste (lambda () sala13))
+)))
+(armazena-elemento! 'sala12 sala12)
+
 (define sala13
   (local 
     "Você se encontra em um salão vazio com saídas para o Leste e Norte."
@@ -324,6 +336,16 @@
       (cons leste (lambda () sala12))
       (cons norte (lamda () sala14)))))
 (armazena-elemento! 'sala13 sala13)
+
+(define sala14
+  (local 
+    "Você se encontra em um salão vazio com saídas para o Leste e Sul."
+    "Vermelho"
+    (list ())
+    list(
+      (cons leste (lambda () sala15))
+      (cons Sul (lamda () sala13)))))
+(armazena-elemento! 'sala14 sala14)
 
 (define sala15
   (local 
@@ -335,6 +357,16 @@
       (cons sul (lamda () sala16)))))
 (armazena-elemento! 'sala15 sala15)
 
+(define sala16
+  (local
+    "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste e o Norte."
+    "Laranja"
+    (list portal1)
+    list(
+      (cons leste (lambda () sala17))
+      (cons norte (lambda () sala15))
+)))
+(armazena-elemento! 'sala16 sala16)
 
 (define sala17
   (local 
@@ -347,6 +379,18 @@
       (cons oeste (lamda () sala16)))))
 (armazena-elemento! sala17 sala17)
 
+(define sala18
+  (local
+    "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Sul."
+    "Laranja"
+    (list dica)
+    list(
+      (cons ler)
+      (cons Sul (lambda () sala17))
+      (cons oeste (lambda () sala19))
+)))
+(armazena-elemento! 'sala18 sala18)
+
 (define sala19
   (local 
     "Você se encontra em um salão vazio com saídas para o Leste e Sul."
@@ -357,6 +401,16 @@
       (cons sul (lambda () sala20))
       (cons leste (lamda () sala18)))))
 (armazena-elemento! 'sala19 sala19)
+
+(define sala20
+  (local 
+    "Você se encontra em um salão vazio, com saídas para o: Norte e Leste."
+    "Amarelo"
+    (list ())
+    list(
+      (cons leste (lambda () sala22))
+      (cons norte (lamda () sala19)))))
+(armazena-elemento! 'sala20 sala20)
 
 (define sala21
   (local 
@@ -398,6 +452,16 @@
 )
 (armazena-elemento! 'sala23 sala23)
 
+(define sala24
+  (local 
+    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: Norte e Leste."
+    "Amarelo"
+    (list artefato1)
+    list(
+      (cons norte (lambda () sala25))
+      (cons leste (lamda () sala23)))))
+(armazena-elemento! sala24 sala24)
+
 (define sala25
   (local
     "Você se encontra em um salão com um monstro e saídas para o Leste e Sul."
@@ -414,6 +478,17 @@
                     "O monstro está bloqueando o caminho!")))))
 (armazena-elemento! 'sala25 sala25)
 
+(define sala26
+  (local 
+    "Você se encontra em um salão vazio, com saídas para o: Oeste, Norte e Sul."
+    "Vermelho"
+    (list ())
+    list(
+      (cons oeste (lambda () sala5))
+      (cons norte (lamda () sala28))
+      (cons sul (lamda () sala27)))))
+(armazena-elemento! 'sala26 sala26)
+
 (define sala27
   (local 
     "Você se encontra em um salão com um brilho no chão (teleporte) e saídas para: Norte."
@@ -428,6 +503,17 @@
 )
 (armazena-elemento! 'sala27 sala27)
 
+(define sala28
+  (local 
+    "Você se encontra em um salão vazio, com saídas para o: Norte Leste e Sul."
+    "Vermelho"
+    (list ())
+    list(
+      (cons leste (lambda () sala30))
+      (cons norte (lamda () sala29))
+      (cons sul (lamda () sala26)))))
+(armazena-elemento! 'sala28 sala28)
+
 (define sala29
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Sul."
@@ -440,6 +526,17 @@
   )
 )
 (armazena-elemento! 'sala29 sala29)
+
+(define sala30
+  (local 
+    "Você se encontra em um salão vazio, com saídas para o: Oeste, Sul e Leste."
+    "Laranja"
+    (list ())
+    list(
+      (cons leste (lambda () sala31))
+      (cons oeste (lamda () sala28))
+      (cons sul (lamda () sala32)))))
+(armazena-elemento! 'sala30 sala30)
 
 (define sala31
   (local
@@ -454,6 +551,17 @@
 )
 (armazena-elemento! 'sala31 sala31)
 
+(define sala32
+  (local 
+    "Você se encontra em um salão vazio, com saídas para o: Norte, Leste e Sul."
+    "Laranja"
+    (list ())
+    list(
+      (cons leste (lambda () sala34))
+      (cons norte (lamda () sala30))
+      (cons sul (lamda () sala33)))))
+(armazena-elemento! 'sala32 sala32)
+
 (define sala33
   (local
     "Você se encontra em um salão com escrituras no chão e saída para o Norte."
@@ -466,6 +574,25 @@
   )
 )
 (armazena-elemento! 'sala33 sala33)
+
+(define sala34
+  (local
+    "Você se encontra em um salão com um monstro e saídas para o: Norte Oeste e Leste."
+    (list monstro1)
+    "Amarelo"
+    (list
+     (cons lutar)
+     (cons voltar) ; TODO: Mapear a sala anterior
+     (cons norte (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala35)
+                    "O monstro está bloqueando o caminho!"))
+     (cons leste (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala21)
+                    "O monstro está bloqueando o caminho!"))
+     (cons oeste (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala32)
+                    "O monstro está bloqueando o caminho!")))))
+(armazena-elemento! 'sala34 sala34)
 
 (define sala35
   (local
