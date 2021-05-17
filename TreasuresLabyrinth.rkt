@@ -275,6 +275,18 @@
   )
 )
 
+(define sala15
+  (local 
+    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Laranja"
+    (list ())
+    ; Ir para Oeste(14), Ir para Sul(16)
+    (list oeste (lambda () sala14))
+    (list sul (lamda () sala16))
+  )
+)
+
+
 ;; ============================================================
 ;; Game state
 
