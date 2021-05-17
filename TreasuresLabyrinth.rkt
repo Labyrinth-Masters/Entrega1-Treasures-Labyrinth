@@ -274,6 +274,7 @@
     (list norte (lamda () sala14))
   )
 )
+(salva-elemento! 'sala13 sala13)
 
 (define sala15
   (local 
@@ -284,6 +285,8 @@
     (list sul (lamda () sala16))
   )
 )
+(salva-elemento! 'sala15 sala15)
+
 
 (define sala17
   (local 
@@ -295,6 +298,7 @@
     (list oeste (lamda () sala16))
   )
 )
+(salva-elemento! sala17 sala17)
 
 (define sala19
   (local 
@@ -306,6 +310,7 @@
     (list leste (lamda () sala18))
   )
 )
+(salva-elemento! 'sala19 sala19)
 
 (define sala21
   (local 
@@ -316,6 +321,7 @@
     (list sair (cons (lambda () sala1)))
   )
 )
+(salva-elemento! 'sala21 sala21)
 
 (define sala23
   (local 
@@ -327,6 +333,24 @@
     (list oeste (lamda () sala24))
   )
 )
+(salva-elemento! 'sala23 sala23)
+
+(define sala3
+  (local
+    "Você se encontra em um salão com um monstro e saídas para o Leste e Sul."
+    (list 'monstro)
+    "Amarelo"
+    (list
+     (cons lutar)
+     (cons voltar) ; TODO: Mapear a sala anterior
+     (cons leste (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala36)
+                    "O monstro está bloqueando o caminho!"))
+     (cons sul (if (eq? (thing-state monstro1) 'morto)
+                    (lambda () sala24)
+                    "O monstro está bloqueando o caminho!")))))
+(salva-elemento! 'sala25 sala25)
+
 
 
 ;; ============================================================
