@@ -383,6 +383,7 @@
 (define sala29
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Sul."
+    "Vermelho"
     (list dica)
     list(
       (cons ler)
