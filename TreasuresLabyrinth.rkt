@@ -391,6 +391,20 @@
     )
   )
 )
+(salva-elemento! 'sala29 sala29)
+
+(define sala31
+  (local
+    "Você se encontra em um salão com um brilho no chão (teleporte) e saída para Oeste."
+    "Laranja"
+    (list teleporte)
+    list(
+      (cons teleporte (lambda () sala9))
+      (cons oeste (lambda () sala30)
+    )
+  )
+)
+(salva-elemento! 'sala31 sala31)
 
 
 
