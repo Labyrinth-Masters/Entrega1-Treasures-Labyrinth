@@ -207,7 +207,7 @@
     (list
      (cons leste (lambda () sala3))
      (cons oeste (lambda () sala4)))))
-(salva-elemento! 'sala2 sala2)
+(armazena-elemento! 'sala2 sala2)
 
 (define sala3
   (local
@@ -223,7 +223,7 @@
      (cons north (if (eq? (thing-state monstro1) 'morto)
                     (lambda () sala2)
                     "O monstro está bloqueando o caminho!")))))
-(salva-elemento! 'sala3 sala3)
+(armazena-elemento! 'sala3 sala3)
 
 (define sala5
   (local
@@ -234,7 +234,7 @@
      (cons norte (lambda () sala6))
      (cons leste (lambda () sala26))
      (cons sul   (lambda () sala4)))))
-(salva-elemento! 'sala5 sala5)
+(armazena-elemento! 'sala5 sala5)
     
 
 (define sala7
@@ -246,7 +246,7 @@
      ; Ir para Oeste(6), Ir para Sul(10)
      (cons oeste (lambda () sala6))
      (cons sul   (lambda () sala10)))))
-(salva-elemento! 'sala7 sala3)
+(armazena-elemento! 'sala7 sala3)
 
 (define sala9
   (local
@@ -256,7 +256,7 @@
     list(
       (cons leste (lambda () sala8))
       (cons portal (lambda () sala31)))))
-(salva-elemento! 'sala9 sala9)
+(armazena-elemento! 'sala9 sala9)
 
 (define sala11
   (local
@@ -267,7 +267,7 @@
     list(
       (cons oeste (lambda () sala10))
       (cons sul   (lambda () sala12)))))
-(salva-elemento! 'sala11 sala11)
+(armazena-elemento! 'sala11 sala11)
 
 (define sala13
   (local 
@@ -280,7 +280,7 @@
     )  
   )
 )
-(salva-elemento! 'sala13 sala13)
+(armazena-elemento! 'sala13 sala13)
 
 (define sala15
   (local 
@@ -293,7 +293,7 @@
     )
   )
 )
-(salva-elemento! 'sala15 sala15)
+(armazena-elemento! 'sala15 sala15)
 
 
 (define sala17
@@ -308,7 +308,7 @@
     )
   )
 )
-(salva-elemento! sala17 sala17)
+(armazena-elemento! sala17 sala17)
 
 (define sala19
   (local 
@@ -321,7 +321,7 @@
       (cons leste (lamda () sala18))
   )
 )
-(salva-elemento! 'sala19 sala19)
+(armazena-elemento! 'sala19 sala19)
 
 (define sala21
   (local 
@@ -334,7 +334,7 @@
     )
   )
 )
-(salva-elemento! 'sala21 sala21)
+(armazena-elemento! 'sala21 sala21)
 
 (define sala23
   (local 
@@ -348,7 +348,7 @@
     )
   )
 )
-(salva-elemento! 'sala23 sala23)
+(armazena-elemento! 'sala23 sala23)
 
 (define sala25
   (local
@@ -364,7 +364,7 @@
      (cons sul (if (eq? (thing-state monstro1) 'morto)
                     (lambda () sala24)
                     "O monstro está bloqueando o caminho!")))))
-(salva-elemento! 'sala25 sala25)
+(armazena-elemento! 'sala25 sala25)
 
 (define sala27
   (local 
@@ -378,7 +378,7 @@
     )
   )
 )
-(salva-elemento! 'sala27 sala27)
+(armazena-elemento! 'sala27 sala27)
 
 (define sala29
   (local
@@ -391,7 +391,7 @@
     )
   )
 )
-(salva-elemento! 'sala29 sala29)
+(armazena-elemento! 'sala29 sala29)
 
 (define sala31
   (local
@@ -404,7 +404,7 @@
     )
   )
 )
-(salva-elemento! 'sala31 sala31)
+(armazena-elemento! 'sala31 sala31)
 
 (define sala33
   (local
@@ -417,7 +417,7 @@
     )
   )
 )
-(salva-elemento! 'sala33 sala33)
+(armazena-elemento! 'sala33 sala33)
 
 (define sala35
   (local
@@ -430,7 +430,7 @@
     )
   )
 )
-(salva-elemento! 'sala35 sala35)
+(armazena-elemento! 'sala35 sala35)
 
 
 ;; ============================================================
