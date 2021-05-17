@@ -56,6 +56,9 @@
 (define sair (verbo (list 'sair 'saia) "sair" #f))
 (armazenar-elemento! 'sair sair)
 
+(define teleporte (verbo (list 'teleporte 't) "usar o teleporte" #f))
+(armazenar-elemento! 'teleporte teleporte)
+
 (define voltar (verbo (list 'voltar 'retroceder) "voltar" #f))
 (armazenar-elemento! 'voltar voltar)
 
@@ -351,6 +354,18 @@
                     "O monstro está bloqueando o caminho!")))))
 (salva-elemento! 'sala25 sala25)
 
+(define sala27
+  (local 
+    "Você se encontra em um salão com um brilho no chão (teleporte) e saídas para: Norte."
+    "Vermelho"
+    (list teleporte))
+    ; ir para Norte (26), usar Teleporte (16)
+    (list norte (lambda () sala26))
+    (list teleporte (lambda () sala16))
+    
+  )
+)
+(salva-elemento! 'sala27 sala27)
 
 
 ;; ============================================================
