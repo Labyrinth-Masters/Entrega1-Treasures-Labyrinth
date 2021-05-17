@@ -335,7 +335,7 @@
 )
 (salva-elemento! 'sala23 sala23)
 
-(define sala3
+(define sala25
   (local
     "Você se encontra em um salão com um monstro e saídas para o Leste e Sul."
     (list 'monstro)
