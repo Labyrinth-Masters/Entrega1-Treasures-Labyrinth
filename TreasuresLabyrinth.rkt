@@ -367,6 +367,18 @@
 )
 (salva-elemento! 'sala27 sala27)
 
+(define sala29
+  (local
+    "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Sul."
+    (list dica)
+    list(
+      (cons ler)
+      (cons sul (lambda () sala28)
+    )
+  )
+)
+
+
 
 ;; ============================================================
 ;; Game state
