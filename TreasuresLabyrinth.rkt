@@ -14,6 +14,7 @@
 
 ; TODO: ADICIONAR A COR DO CORREDOR
 (struct local (desc         ; string
+               cor          ; cor do corredor
                [coisas #:mutable] ; lista de coisas
                acoes))    ; lista pares verbo--coisa
 
@@ -198,6 +199,7 @@
 (define sala2
   (local
     "Você se encontra em um salão com um pedestal no meio e saídas para o Leste e Oeste."
+    "Azul"
     (list artefato1)
     (list
      (cons leste (lambda () sala3))
@@ -208,6 +210,7 @@
   (local
     "Você se encontra em um salão com um monstro e saídas para o Oeste e Norte."
     (list 'Monstro)
+    "Azul"
     (list
      (cons lutar)
      (cons voltar) ; TODO: Mapear a sala anterior
@@ -222,6 +225,7 @@
 (define sala5
   (local
     "Você se encontra em um salão vazio com saídas para o Norte, Leste e Sul."
+    "Azul"
     (list ())
     (list
      (cons norte (lambda () sala6))
@@ -233,6 +237,7 @@
 (define sala7
   (local
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Azul"
     (list ())
     (list
      ; Ir para Oeste(6), Ir para Sul(10)
@@ -243,6 +248,7 @@
 (define sala9
   (local
     "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste."
+    "Azul"
     (list 'Portal) ; TODO: Adiconar PORTAL a lista de coisas
     ; Usar Portal(31), Ir para Leste(8)
     (cons leste (lambda () sala8))
@@ -252,12 +258,22 @@
 (define sala11
   (local
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Vermelho"
     (list ())
     ; Ir para Oeste(10), Ir para Sul(12)
     (cons oeste (lambda () sala10))
     (cons sul   (lambda () sala12))))
 (salva-elemento! 'sala11 sala11)
-    
+
+(define sala13
+  (local 
+    "Você se encontra em um salão vazio com saídas para o Leste e Norte."
+    "Vermelho"
+    (list ())
+    (list leste (lambda () sala12))
+    (list norte (lamda () sala14))
+  )
+)
 
 ;; ============================================================
 ;; Game state
