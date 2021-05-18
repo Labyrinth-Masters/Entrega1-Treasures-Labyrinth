@@ -51,13 +51,13 @@
 (define entrar (verbo (list 'entrar 'entre) "entrar" #f))
 (armazenar-elemento! 'entrar entrar)
 
-(define sair (verbo (list 'sair 'saia) "sair" #f))
+(define sair (verb (list 'sair 'saia) "sair" #f))
 (armazenar-elemento! 'sair sair)
 
-(define voltar (verbo (list 'voltar 'retroceder) "voltar" #f))
+(define voltar (verb (list 'voltar 'retroceder) "voltar" #f))
 (armazenar-elemento! 'voltar voltar)
 
-(define lutar (verbo (list 'lutar 'enfrentar 'lute) "lutar" #f))
+(define lutar (verb (list 'lutar 'enfrentar 'lute) "lutar" #f))
 (armazenar-elemento! 'lutar lutar)
 
 (define pegar (verbo (list 'pegar 'apanhar 'levar) "pegar" #t))
@@ -66,7 +66,7 @@
 (define ler (verbo (list 'ler 'ver) "ler" #t))
 (armazenar-elemento! 'ler ler)
 
-(define abrir (verbo (list 'abrir 'destrancar) "abrir" #t))
+(define abrir (verb (list 'abrir 'destrancar) "abrir" #t))
 (armazenar-elemento! 'abrir abrir)
 
 (define quit (verbo (list 'quit 'exit) "quit" #f))
@@ -102,83 +102,40 @@
 
 
 ;; Ações Global ----------------------------------------
-;; Lida com verbos que funcionam em qualquer local.
+;; Lida com verbos que funcionam em qualquer lugar.
 
-(define qualquerLocal-acoes
+(define qualquerLugar-acoes
   (list
    (cons quit (lambda () (begin (printf "Tchau, até a próxima!\n") (exit))))
-   (cons olhar (lambda () (mostrar-local-atual)))
-   (cons inventario (lambda () (mostrar-inventario)))
+   (cons olhar (lambda () (show-current-place)))
+   (cons inventario (lambda () (show-inventory)))
    (cons save (lambda () (save-game)))
    (cons load (lambda () (load-game)))
-   (cons ajuda (lambda () (mostrar-ajuda)))))
+   (cons ajuda (lambda () (show-help)))))
 
 ;; Coisas ----------------------------------------
 ;; Cada coisa cuida de um conjunto de verbos transitivos.
 
 
 (define artefato1
-  (coisa 'artefato1 
+  (thing 'artefato1 
          #f 
-         (list (cons pegar 
+         (list (cons get 
                     (lambda () 
-                      (if (tem-coisa? artefato1)
+                      (if (have-thing? artefato1)
                         "Você já possui esse artefato1."
                         (begin 
-                          (tem-coisa! artefato1)
+                          (take-thing! artefato1)
                           "Você agora tem esse artefato1.")))))))
 (armazenar-elemento! 'artefato1 artefato1)
 
-(define monstro1
-  (coisa 'monstro1
-         'vivo 
-         (list (cons lutar 
-                    (lambda () 
-                      (if (and (eq? (coisa-state monstro1) 'vivo) (tem-coisa? artefato1))
-                        (begin
-                          (set-coisa-state! monstro1 'morto)
-                          "Você conseguiu derrotar o monstro!")
-                        (if (eq? (coisa-state monstro1) 'morto)
-                            "Esse monstro já foi derrotado!"
-                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
-(armazenar-elemento! 'monstro1 monstro1)
-
-(define dica-sala1
-  (coisa 'dica-sala1
-         #f
-         (list (cons ler 
-                    (lambda () 
-                        "Use os dedos para jogar.")))))
-(armazenar-elemento! 'dica-sala1 dica-sala1)
-
-(define portal1
-  (coisa 'portal1
-         #f
-         (list (cons usar 
-                    (lambda () sala1))
-               (cons entrar 
-                    (lambda () sala1)))))
-(armazenar-elemento! 'portal-sala1 portal-sala1)
-
-(define tesouro
-  (coisa 'tesouro
-         #f
-         (list
-          (cons pegar 
-                (lambda ()
-                  (begin
-                    (tem-coisa! tesouro)
-                    "Você ganhou!"))))))
-(armazenar-elemento! 'tesouro tesouro)
-
-#| exemplo de coisa:
 (define door
-  (coisa 'door
+  (thing 'door
          #f
          (list
           (cons open 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       (begin
                         (set-thing-state! door 'open)
                         "The door is now unlocked and open.")
@@ -194,19 +151,19 @@
 (record-element! 'door door)
 
 (define key
-  (coisa 'key
+  (thing 'key
          #f
          (list
           (cons get 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       "You already have the key."
                       (begin
                         (take-thing! key)
                         "You now have the key."))))
           (cons put 
                 (lambda ()
-                  (if (tem-coisa? key)
+                  (if (have-thing? key)
                       (begin
                         (drop-thing! key)
                         "You have dropped the key.")
@@ -214,7 +171,7 @@
 (record-element! 'key key)
 
 (define trophy
-  (coisa 'trophy
+  (thing 'trophy
          #f
          (list
           (cons get 
@@ -223,7 +180,6 @@
                     (take-thing! trophy)
                     "You win!"))))))
 (record-element! 'trophy trophy)
-|#
 
 ;; Places ----------------------------------------
 ;; Each place handles a set of non-transitive verbs.
@@ -257,9 +213,7 @@
    "You're in a desert. There is nothing for miles around."
    (list cactus key)
    (list
-    (cons north (if (eq? (thing-state monstro1) 'morto)
-                    (lambda () meadow)
-                    "O monstro está bloqueando o caminho!"))
+    (cons north (lambda () meadow))
     (cons south (lambda () desert))
     (cons east (lambda () desert))
     (cons west (lambda () desert)))))
@@ -273,51 +227,48 @@
 (record-element! 'room room)
 
 ;; ============================================================
-;; Estado do Jogo
+;; Game state
 
-;; Coisas carregadas pelo jogador:
-(define pertences null) ; lista de coisas
+;; Things carried by the player:
+(define stuff null) ; list of things
 
-;; Localização Atual:
-(define local-atual meadow) ; local
+;; Current location:
+(define current-place meadow) ; place
 
-;; Localização Anterior:
-(define local-anterior meadow) ; local
+;; Fuctions to be used by verb responses:
+(define (have-thing? t)
+  (memq t stuff))
 
-;; Funções para serem usadas por respostas de verbos
-(define (tem-coisa? t)
-  (memq t pertences))
+(define (take-thing! t) 
+  (set-place-things! current-place
+                     (remq t (place-things current-place)))
+  (set! stuff (cons t stuff)))
 
-(define (pegar-coisa! t) 
-  (set-local-coisas! local-atual
-                     (remq t (local-coisas local-atual)))
-  (set! pertences (cons t pertences)))
-
-(define (soltar-coisa! t) 
-  (set-local-coisas! local-atual
-                     (cons t (local-coisas local-atual)))
-  (set! pertences (remq t pertences)))
+(define (drop-thing! t) 
+  (set-place-things! current-place
+                     (cons t (place-things current-place)))
+  (set! stuff (remq t stuff)))
 
 
 ;; ============================================================
-;; Execução do jogo
+;; Game execution
 
-;; Inicializa e começa
-;; Mostra o local atual do jogador, então recebe um comando:
-(define (execute-local)
-  (mostrar-local-atual) ; mostra local atual
-  (processe-verbo))           ; executa comando
+;; Inicializes and begin
+;; Show the player the current place, then get a command:
+(define (do-place)
+  (show-current-place) ; mostra lugar atual
+  (do-verb))           ; executa comando
 
-;; Mostra o local atual
-(define (mostrar-local-atual)
-  (printf "~a\n" (local-desc local-atual)) ; imprime o local
-  (for-each (lambda (coisa)      ; imprime as coisas do local
-              (printf "Tem um/a ~a here.\n" (coisa-nome coisa)))
-            (local-coisas local-atual)))
+;; Show the current place:
+(define (show-current-place)
+  (printf "~a\n" (place-desc current-place)) ; imprime o lugar
+  (for-each (lambda (thing)      ; imprime as coisas do lugar
+              (printf "There is a ~a here.\n" (thing-name thing)))
+            (place-things current-place)))
 
-;; Loop principal
-;; Pega e trata um comando:
-(define (processe-verbo)
+;; Main loop
+;; Get and handle a command:
+(define (do-verb)
   (printf "> ")             ; imprime o prompt
   (flush-output)
   (let* ([line (read-line)] ; lê comando
@@ -332,101 +283,101 @@
             (let ([response ;; monta resposta para verbos
                    (cond
                     [(= 2 (length input))
-                     (trata-verbo-transitivo cmd (cadr input))] ;; transitivos
+                     (handle-transitive-verb cmd (cadr input))] ;; transitivos
                     [(= 1 (length input))
-                     (trata-verbo-intransitivo cmd)])])         ;; intransitivos
+                     (handle-intransitive-verb cmd)])])         ;; intransitivos
               (let ([result (response)]) ;; resposta é uma função, execute-a
                 (cond
-                 [(local? result) ;; se o resultado for um local
-                  (set! local-atual result) ;; ele passa a ser o novo local
-                  (execute-local)]   ;; faça o processamento do novo local, loop
+                 [(place? result) ;; se o resultado for um lugar
+                  (set! current-place result) ;; ele passa a ser o novo lugar
+                  (do-place)]   ;; faça o processamento do novo lugar, loop
                  [(string? result) ; se a resposta for uma string
                   (printf "~a\n" result)  ; imprima a resposta
-                  (processe-verbo)]    ; volte a processar outro comando, loop
-                 [else (processe-verbo)])))) ; caso contrário, outro comando, loop
+                  (do-verb)]    ; volte a processar outro comando, loop
+                 [else (do-verb)])))) ; caso contrário, outro comando, loop
           (begin ; comando incorreto
-            (printf "Não entendi o que quis dizer.\n")
-            (processe-verbo)))))
+            (printf "I don't undertand what you mean.\n")
+            (do-verb)))))
 
 
-;; Trata um comando de verbo-intransitivo:
+;; Handle an intransitive-verb command:
 ;; retorna função para processar verbo intrasitivo
 
-(define (trata-verbo-intransitivo cmd)
+(define (handle-intransitive-verb cmd)
   (or
-   ; considerando o local, retorna a ação associada ao verbo
-   (encontra-verbo cmd (local-acoes local-atual))
-   ; se não achou no local, considerando o jogo todo, retorna a ação associada ao verbo
-   (encontra-verbo cmd qualquerLocal-acoes)
-   ; se não achou no local ou no geral, mas o verbo existe
+   ; considerando o lugar, retorna a ação associada ao verbo
+   (find-verb cmd (place-actions current-place))
+   ; se não achou no lugar, considerando o jogo todo, retorna a ação associada ao verbo
+   (find-verb cmd everywhere-actions)
+   ; se não achou no lugar ou no geral, mas o verbo existe
    ; retorna uma função que dá uma mensagem de erro em contexto
-   (usando-verbo  ; procura o verbo, obtem info descritiva, e retorna a função abaixo
-    cmd todos-verbos
-    (lambda (verbo)
-      (lambda () ; função retornada por usando-verbo, mensagem de erro em contexto
-        (if (verbo-transitivo? verbo)
-            (format "~a o quê?" (string-titlecase (verbo-desc verbo)))
-            (format "Não pode ~a aqui." (verbo-desc verbo))))))
+   (using-verb  ; procura o verbo, obtem info descritiva, e retorna a função abaixo
+    cmd all-verbs
+    (lambda (verb)
+      (lambda () ; função retornada por using-verb, mensagem de erro em contexto
+        (if (verb-transitive? verb)
+            (format "~a what?" (string-titlecase (verb-desc verb)))
+            (format "Can't ~a here." (verb-desc verb))))))
    (lambda () ; não achou o verbo no jogo
-     (format "Eu não sei como fazer ~a." cmd))))
+     (format "I don't know how to ~a." cmd))))
 
-;; Trata um comando de verbo transitivo:
-(define (trata-verbo-transitivo cmd obj)
-  (or (usando-verbo ; produz ação para verbo, retorna falso se não achar verbo no jogo
-       cmd todos-verbos
-       (lambda (verbo) ; função retornada
+;; Handle a transitive-verb command:
+(define (handle-transitive-verb cmd obj)
+  (or (using-verb ; produz ação para verbo, retorna falso se não achar verbo no jogo
+       cmd all-verbs
+       (lambda (verb) ; função retornada
          (and ; retorna falso se alguma destas coisas for falsa
-          (verbo-transitivo? verbo) ; verbo é transitivo? - funcão criada por struct 
+          (verb-transitive? verb) ; verbo é transitivo? - funcão criada por struct 
           (cond
-           [(ormap (lambda (coisa) ; verifica se o objeto nomeado existe em contexto
-                     (and (eq? (coisa-nome coisa) obj)
-                          coisa))
-                   ; na lista das coisas do local e das coisas que tenho (pertences)
-                   (append (local-coisas local-atual) 
-                           pertences))
-            => (lambda (coisa) ; se existe, aplica esta função sobre a coisa/coisa
-                 (or (encontra-verbo cmd (coisa-acoes coisa)) ; retorna acão que se aplica a coisa
+           [(ormap (lambda (thing) ; verifica se o objeto nomeado existe em contexto
+                     (and (eq? (thing-name thing) obj)
+                          thing))
+                   ; na lista das coisas do lugar e das coisas que tenho (stuff)
+                   (append (place-things current-place) 
+                           stuff))
+            => (lambda (thing) ; se existe, aplica esta função sobre a coisa/thing
+                 (or (find-verb cmd (thing-actions thing)) ; retorna acão que se aplica a coisa
                      (lambda () ; se ação não encontrada, indica que não há ação
-                       (format "Não sei como fazer ~a ~a."
-                               (verbo-desc verbo) obj))))]
+                       (format "Don't know how to ~a ~a."
+                               (verb-desc verb) obj))))]
            [else ; se objeto não existe
             (lambda ()
-              (format "Não tem um ~a aqui para ~a." obj 
-                      (verbo-desc verbo)))]))))
+              (format "There's no ~a here to ~a." obj 
+                      (verb-desc verb)))]))))
       (lambda ()  ; se não achou o verbo
-        (format "Eu não sei como fazer ~a ~a." cmd obj))))
+        (format "I don't know how to ~a ~a." cmd obj))))
 
-;; Mostra o que o jogador está carregando:
-(define (mostrar-inventario)
-  (printf "Você tem")
-  (if (null? pertences)
-      (printf " nenhum item.")
-      (for-each (lambda (coisa) ; aplica esta função a cada coisa da lista
-                  (printf "\n  um ~a" (coisa-nome coisa)))
-                pertences))
+;; Show what the player is carrying:
+(define (show-inventory)
+  (printf "You have")
+  (if (null? stuff)
+      (printf " no items.")
+      (for-each (lambda (thing) ; aplica esta função a cada coisa da lista
+                  (printf "\n  a ~a" (thing-name thing)))
+                stuff))
   (printf "\n"))
 
-;; Procura por um equivalência de comando numa lista de pares verbo--resposta,
-;; e retorna a resposta se uma equivalência é encontrada:
-(define (encontra-verbo cmd acoes)
+;; Look for a command match in a list of verb--response pairs,
+;; and returns the response thunk if a match is found:
+(define (find-verb cmd actions)
   (ormap (lambda (a)
-           (and (memq cmd (verbo-sinonimos (car a)))
+           (and (memq cmd (verb-aliases (car a)))
                 (cdr a)))
-         acoes))
+         actions))
 
-;; Procura por um comando na lista de verbos e,
-;; aplica `sucess-k' para o verbo se algum é encontrado:
-(define (usando-verbo cmd verbos success-k)
+;; Looks for a command in a list of verbs, and
+;; applies `success-k' to the verb if one is found:
+(define (using-verb cmd verbs success-k)
   (ormap (lambda (vrb)
-           (and (memq cmd (verbo-sinonimos vrb))
+           (and (memq cmd (verb-aliases vrb))
                 (success-k vrb)))
-         verbos))
+         verbs))
 
-;; Imprimir informação de ajuda:
-(define (mostrar-ajuda)
-  (printf "Use `olhar' para olhar em volta.\n")
-  (printf "Use `inventário' para ver o que você possui.\n")
-  (printf "Use `save' ou `load' para salvar ou restaurar seu jogo.\n")
+;; Print help information:
+(define (show-help)
+  (printf "Use `look' to look around.\n")
+  (printf "Use `inventory' to see what you have.\n")
+  (printf "Use `save' or `load' to save or restore your game.\n")
   (printf "There are some other verbs, and you can name a thing after some verbs.\n"))
 
 ;; ============================================================
@@ -453,14 +404,14 @@
        (lambda ()
          (write
           (list
-           (map elemento->nome pertences)
-           (elemento->nome local-atual)
-           (hash-map nomes
+           (map element->name stuff)
+           (element->name current-place)
+           (hash-map names
                      (lambda (k v)
                        (cons k
                              (cond
-                              [(local? v) (map elemento->nome (local-coisas v))]
-                              [(coisa? v) (coisa-estado v)]
+                              [(place? v) (map element->name (place-things v))]
+                              [(thing? v) (thing-state v)]
                               [else #f])))))))))))
 
 ;; Restore a game state:
@@ -468,18 +419,18 @@
   (with-filename
    (lambda (v)
      (let ([v (with-input-from-file v read)])
-       (set! pertences (map nome->elemento (car v)))
-       (set! local-atual (nome->elemento (cadr v)))
+       (set! stuff (map name->element (car v)))
+       (set! current-place (name->element (cadr v)))
        (for-each
         (lambda (p)
-          (let ([v (nome->elemento (car p))]
-                [estado (cdr p)])
+          (let ([v (name->element (car p))]
+                [state (cdr p)])
             (cond
-             [(local? v) (set-local-coisas! v (map nome->elemento estado))]
-             [(coisa? v) (set-coisa-estado! v estado)])))
+             [(place? v) (set-place-things! v (map name->element state))]
+             [(thing? v) (set-thing-state! v state)])))
         (caddr v))))))
 
 ;; ============================================================
-;; Começar!
+;; Go!
 
-(execute-local)
+(do-place)
