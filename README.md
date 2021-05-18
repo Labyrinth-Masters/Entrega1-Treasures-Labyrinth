@@ -11,6 +11,18 @@ Trabalho da disciplina de MATA77-Programacão Funcional, referente ao game: Colo
 
 ## Primeiro entregavel
 
+Para o primeiro entregável foram criados o esboço do mapa. E a estrutura inicial para o jogo.
+
+###  Verbos
+
+| **Verb**    | **Description**                                           |
+| :---------: | :-------------------------------------------------------: |
+| **Norte**   | Move o personagem para o norte do labirinto               |
+| **Sul**     | Move o personagem para o Sul do labirinto                 |
+| **Leste**   | Move o personagem para o Leste do labirinto               |
+| **Oeste**   | Move o personagem para o Oeste do labirinto               |
+
+
 ### Mapa
 
 ![Mapa do Labirinto](labirinto.svg)
