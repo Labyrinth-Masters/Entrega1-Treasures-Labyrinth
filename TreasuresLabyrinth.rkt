@@ -173,7 +173,7 @@
 
 #| exemplo de coisa:
 (define door
-  (thing 'door
+  (coisa 'door
          #f
          (list
           (cons open 
@@ -194,7 +194,7 @@
 (record-element! 'door door)
 
 (define key
-  (thing 'key
+  (coisa 'key
          #f
          (list
           (cons get 
@@ -212,6 +212,17 @@
                         "You have dropped the key.")
                       "You don't have the key."))))))
 (record-element! 'key key)
+
+(define trophy
+  (coisa 'trophy
+         #f
+         (list
+          (cons get 
+                (lambda ()
+                  (begin
+                    (take-thing! trophy)
+                    "You win!"))))))
+(record-element! 'trophy trophy)
 |#
 
 ;; Places ----------------------------------------
