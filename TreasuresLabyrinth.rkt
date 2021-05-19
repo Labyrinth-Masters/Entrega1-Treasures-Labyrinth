@@ -53,7 +53,7 @@
 (define usar (verbo (list 'usar 'use) "usar" #f))
 (armazenar-elemento! 'usar usar)
 
-(define entrar (verbo (list 'entrar 'entre) "entrar" #f))
+(define entrar (verbo (list 'entrar 'entre) "entrar" #t))
 (armazenar-elemento! 'entrar entrar)
 
 (define sair (verbo (list 'sair 'saia) "sair" #f))
@@ -65,7 +65,7 @@
 (define voltar (verbo (list 'voltar 'retroceder) "voltar" #f))
 (armazenar-elemento! 'voltar voltar)
 
-(define lutar (verbo (list 'lutar 'enfrentar 'lute) "lutar" #f))
+(define lutar (verbo (list 'lutar 'enfrentar 'lute) "lutar" #t))
 (armazenar-elemento! 'lutar lutar)
 
 (define pegar (verbo (list 'pegar 'apanhar 'levar) "pegar" #t))
@@ -122,62 +122,203 @@
 ;; Cada coisa cuida de um conjunto de verbos transitivos.
 
 
-(define artefato1
-  (coisa 'artefato1 
+(define artefatoSala2
+  (coisa 'artefato 
          #f 
          (list (cons pegar 
                     (lambda () 
-                      (if (tem-coisa? artefato1)
-                        "Você já possui esse artefato1."
+                      (if (tem-coisa? artefatoSala2)
+                        "Você já possui esse artefatoSala2."
                         (begin 
-                          (pegar-coisa! artefato1)
-                          "Você adquiriu o artefato1!")))))))
-(armazenar-elemento! 'artefato1 artefato1)
+                          (pegar-coisa! artefatoSala2)
+                          "Você adquiriu o artefatoSala2!")))))))
+(armazenar-elemento! 'artefatoSala2 artefatoSala2)
 
-(define monstro1
-  (coisa 'monstro1
-         'vivo 
+(define monstroSala3
+  (coisa 'minotauro
+         #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstro1) 'vivo) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala3) #t) (tem-coisa? artefatoSala2))
                         (begin
-                          (set-coisa-estado! monstro1 'morto)
+                          (set-local-coisas! local-atual
+                            (remq monstroSala3 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala3 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
-                        (if (eq? (coisa-estado monstro1) 'morto)
+                        (if (eq? (coisa-estado monstroSala3) #f)
                             "Esse monstro já foi derrotado!"
                             "Você não possui o artefato certo para lutar contra esse monstro")))))))
-(armazenar-elemento! 'monstro1 monstro1)
+(armazenar-elemento! 'monstroSala3 monstroSala3)
 
-(define dica
+(define monstroSala4
+  (coisa 'centauro
+         #t 
+         (list (cons lutar 
+                    (lambda () 
+                      (if (and (eq? (coisa-estado monstroSala4) #t) (tem-coisa? artefatoSala2))
+                        (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala4 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala4 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
+                          "Você conseguiu derrotar o monstro!")
+                        (if (eq? (coisa-estado monstroSala4) #f)
+                            "Esse monstro já foi derrotado!"
+                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
+(armazenar-elemento! 'monstroSala4 monstroSala4)
+
+(define monstroSala10
+  (coisa 'kraken
+         #t 
+         (list (cons lutar 
+                    (lambda () 
+                      (if (and (eq? (coisa-estado monstroSala10) #t) (tem-coisa? artefatoSala2))
+                        (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala10 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala10 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
+                          "Você conseguiu derrotar o monstro!")
+                        (if (eq? (coisa-estado monstroSala10) #f)
+                            "Esse monstro já foi derrotado!"
+                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
+(armazenar-elemento! 'monstroSala10 monstroSala10)
+
+(define monstroSala22
+  (coisa 'harpia
+         #t 
+         (list (cons lutar 
+                    (lambda () 
+                      (if (and (eq? (coisa-estado monstroSala22) #t) (tem-coisa? artefatoSala2))
+                        (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala22 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala22 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
+                          "Você conseguiu derrotar o monstro!")
+                        (if (eq? (coisa-estado monstroSala22) #f)
+                            "Esse monstro já foi derrotado!"
+                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
+(armazenar-elemento! 'monstroSala22 monstroSala22)
+
+(define monstroSala25
+  (coisa 'goblin
+         #t 
+         (list (cons lutar 
+                    (lambda () 
+                      (if (and (eq? (coisa-estado monstroSala25) #t) (tem-coisa? artefatoSala2))
+                        (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala25 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala25 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
+                          "Você conseguiu derrotar o monstro!")
+                        (if (eq? (coisa-estado monstroSala25) #f)
+                            "Esse monstro já foi derrotado!"
+                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
+(armazenar-elemento! 'monstroSala25 monstroSala25)
+
+(define monstroSala34
+  (coisa 'troll
+         #t 
+         (list (cons lutar 
+                    (lambda () 
+                      (if (and (eq? (coisa-estado monstroSala34) #t) (tem-coisa? artefatoSala2))
+                        (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala34 (local-coisas local-atual)))
+                          (set-coisa-estado! monstroSala34 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
+                          "Você conseguiu derrotar o monstro!")
+                        (if (eq? (coisa-estado monstroSala34) #f)
+                            "Esse monstro já foi derrotado!"
+                            "Você não possui o artefato certo para lutar contra esse monstro")))))))
+(armazenar-elemento! 'monstroSala34 monstroSala34)
+
+(define dicaSala12
   (coisa 'dica
          #f
          (list (cons ler 
                     (lambda () 
-                        "Use os dedos para jogar.")))))
-(armazenar-elemento! 'dica dica)
+                        "A cor laranja é mais próxima ao tesouro que a cor azul.")))))
+(armazenar-elemento! 'dicaSala12 dicaSala12)
 
-(define portal
-  (coisa 'portal
+(define dicaSala18
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Ir para o Oeste é uma ótima opção.")))))
+(armazenar-elemento! 'dicaSala18 dicaSala18)
+
+(define dicaSala29
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Siga a escada baixo, direita, baixo direita.")))))
+(armazenar-elemento! 'dicaSala29 dicaSala29)
+
+(define dicaSala33
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Procure a direção onde o Sol nasce.")))))
+(armazenar-elemento! 'dicaSala33 dicaSala33)
+
+(define dicaSala35
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Você está bastante próximo do final!!!")))))
+(armazenar-elemento! 'dicaSala35 dicaSala35)
+
+(define portalSala9
+  (coisa 'portalAlfa
          #f
          (list (cons usar
-                     (cond
-                       [(equal? local-atual sala9) (lambda () sala31)]
-                       [(equal? local-atual sala31) (lambda () sala31)]
-                       [(equal? local-atual sala16) (lambda () sala27)]
-                       [else (lambda () sala16)]))
+                     (lambda () sala31))
                (cons entrar 
-                    (cond
-                       [(equal? local-atual sala9) (lambda () sala31)]
-                       [(equal? local-atual sala31) (lambda () sala31)]
-                       [(equal? local-atual sala16) (lambda () sala27)]
-                       [else (lambda () sala16)]))
+                    (lambda () sala31))
                (cons teleporte
-                     (cond
-                       [(equal? local-atual sala9) (lambda () sala31)]
-                       [(equal? local-atual sala31) (lambda () sala31)]
-                       [(equal? local-atual sala16) (lambda () sala27)]
-                       [else (lambda () sala16)])))))
-(armazenar-elemento! 'portal portal)
+                     (lambda () sala31)))))
+(armazenar-elemento! 'portalSala9 portalSala9)
+
+(define portalSala16
+  (coisa 'portalBeta
+         #f
+         (list (cons usar
+                     (lambda () sala27))
+               (cons entrar 
+                    (lambda () sala27))
+               (cons teleporte
+                     (lambda () sala27)))))
+(armazenar-elemento! 'portalSala16 portalSala16)
+
+(define portalSala27
+  (coisa 'portalAlfa
+         #f
+         (list (cons usar
+                     (lambda () sala16))
+               (cons entrar 
+                    (lambda () sala16))
+               (cons teleporte
+                     (lambda () sala16)))))
+(armazenar-elemento! 'portalSala27 portalSala27)
+
+(define portalSala31
+  (coisa 'portalAlfa
+         #f
+         (list (cons usar
+                     (lambda () sala9))
+               (cons entrar 
+                    (lambda () sala9))
+               (cons teleporte
+                     (lambda () sala9)))))
+(armazenar-elemento! 'portalSala31 portalSala31)
 
 (define tesouro
   (coisa 'tesouro
@@ -189,6 +330,14 @@
                     (pegar-coisa! tesouro)
                     "Você ganhou!"))))))
 (armazenar-elemento! 'tesouro tesouro)
+
+(define labirinto
+  (coisa 'labirinto
+         #f
+         (list
+          (cons entrar 
+                (lambda () sala2)))))
+(armazenar-elemento! 'labirinto labirinto)
 
 #| exemplo de coisa:
 (define door
@@ -255,12 +404,19 @@
    (list (cons out (lambda () house-front)))))
 (record-element! 'room room)|#
 
+(define sala1
+  (local
+    "Você está na frente do labirinto.\nEntre e se aventure!"
+    "Não se aplica ao lado de fora."
+    (list labirinto)
+    '()))
+(armazenar-elemento! 'sala1 sala1)
 
 (define sala2
   (local
     "Você se encontra em um salão com um pedestal no meio e saídas para o Leste e Oeste."
     "Azul"
-    (list artefato1)
+    (list artefatoSala2)
     (list
      (cons leste (lambda () sala3))
      (cons oeste (lambda () sala4)))))
@@ -268,39 +424,45 @@
 
 (define sala3
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Oeste e Norte."
-    (list monstro1)
+    "Você se encontra em um salão barulhento com saídas para o Oeste e Norte."
     "Azul"
+    (list monstroSala3)
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons norte (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala8)
-                    "O monstro está bloqueando o caminho!"))
-     (cons oeste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala2)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons norte (lambda () (if (eq? (coisa-estado monstroSala3) #f)
+                              sala8
+                              "O monstro está bloqueando o caminho?")))
+     (cons oeste (lambda () (if (eq? (coisa-estado monstroSala3) #f)
+                              sala2
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala3 sala3)
 
 (define sala4
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Leste e Norte."
+    "Você se encontra em um salão silencioso com saídas para o Leste e Norte."
     "Azul"
-    (list monstro1)
+    (list monstroSala4)
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons norte (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala5)
-                    "O monstro está bloqueando o caminho!"))
-     (cons leste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala2)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons norte (lambda () (if (eq? (coisa-estado monstroSala4) #f)
+                              sala5
+                              "O monstro está bloqueando o caminho?")))
+     (cons leste (lambda () (if (eq? (coisa-estado monstroSala4) #f)
+                              sala2
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala4 sala4)
 
 (define sala5
   (local
     "Você se encontra em um salão vazio com saídas para o Norte, Leste e Sul."
     "Azul"
-    ('())
+    '()
     (list
      (cons norte (lambda () sala6))
      (cons leste (lambda () sala26))
@@ -309,9 +471,9 @@
 
 (define sala6
   (local
-    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: leste e sul."
+    "Você se encontra em um salão com neblina com saídas para: leste e sul."
     "Azul"
-    (list artefato1)
+    '()
     (list
      (cons leste (lambda () sala7))
      (cons sul   (lambda () sala5)))))
@@ -319,9 +481,9 @@
 
 (define sala7
   (local
-    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Você se encontra em um salão de plantas com saídas para o Oeste e Sul."
     "Azul"
-    ('())
+    '()
     (list
      (cons oeste (lambda () sala6))
      (cons sul   (lambda () sala10)))))
@@ -329,9 +491,9 @@
 
 (define sala8
   (local
-    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Você se encontra em um salão com água nos cantos com saídas para o Oeste e Sul."
     "Azul"
-    ('())
+    '()
     (list
      (cons oeste (lambda () sala9))
      (cons sul   (lambda () sala3)))))
@@ -341,7 +503,7 @@
   (local
     "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste."
     "Azul"
-    (list portal)
+    (list portalSala9)
     (list
       (cons leste (lambda () sala8)))))
 (armazenar-elemento! 'sala9 sala9)
@@ -350,23 +512,26 @@
   (local
     "Você se encontra em um salão com um monstro e saídas para o Leste e Norte."
     "Vermelho"
-    (list monstro1)
+    (list monstroSala10)
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons norte (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala7)
-                    "O monstro está bloqueando o caminho!"))
-     (cons leste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala11)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons norte (lambda () (if (eq? (coisa-estado monstroSala10) #f)
+                              sala7
+                              "O monstro está bloqueando o caminho?")))
+     (cons leste (lambda () (if (eq? (coisa-estado monstroSala10) #f)
+                              sala11
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala10 sala10)
 
 (define sala11
   (local
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
     "Vermelho"
-    ('())
-    list(
+    '()
+    (list
       (cons oeste (lambda () sala10))
       (cons sul   (lambda () sala12)))))
 (armazenar-elemento! 'sala11 sala11)
@@ -375,8 +540,8 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Norte."
     "Vermelho"
-    (list dica)
-    list(
+    (list dicaSala12)
+    (list
       (cons norte (lambda () sala11))
       (cons oeste (lambda () sala13))
 )))
@@ -386,8 +551,8 @@
   (local 
     "Você se encontra em um salão vazio com saídas para o Leste e Norte."
     "Vermelho"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala12))
       (cons norte (lambda () sala14)))))
 (armazenar-elemento! 'sala13 sala13)
@@ -396,8 +561,8 @@
   (local 
     "Você se encontra em um salão vazio com saídas para o Leste e Sul."
     "Vermelho"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala15))
       (cons sul (lambda () sala13)))))
 (armazenar-elemento! 'sala14 sala14)
@@ -406,8 +571,8 @@
   (local 
     "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
     "Laranja"
-    ('())
-    list(
+    '()
+    (list
       (cons oeste (lambda () sala14))
       (cons sul (lambda () sala16)))))
 (armazenar-elemento! 'sala15 sala15)
@@ -416,8 +581,8 @@
   (local
     "Você se encontra em um salão com um brilho no chão (teleporte) e uma saída para o Leste e o Norte."
     "Laranja"
-    (list portal)
-    list(
+    (list portalSala16)
+    (list
       (cons leste (lambda () sala17))
       (cons norte (lambda () sala15))
 )))
@@ -427,8 +592,8 @@
   (local 
     "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: oeste e norte."
     "Laranja"
-    (list artefato1)
-    list(
+    '()
+    (list
       (cons norte (lambda () sala18))
       (cons oeste (lambda () sala16)))))
 (armazenar-elemento! sala17 sala17)
@@ -437,8 +602,8 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Sul."
     "Laranja"
-    (list dica)
-    list(
+    (list dicaSala18)
+    (list
       (cons sul (lambda () sala17))
       (cons oeste (lambda () sala19))
 )))
@@ -448,8 +613,8 @@
   (local 
     "Você se encontra em um salão vazio com saídas para o Leste e Sul."
     "Laranja"
-    ('())
-    list(
+    '()
+    (list
       (cons sul (lambda () sala20))
       (cons leste (lambda () sala18)))))
 (armazenar-elemento! 'sala19 sala19)
@@ -458,8 +623,8 @@
   (local 
     "Você se encontra em um salão vazio, com saídas para o: Norte e Leste."
     "Amarelo"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala22))
       (cons norte (lambda () sala19)))))
 (armazenar-elemento! 'sala20 sala20)
@@ -470,7 +635,7 @@
     "Verde"
     (list tesouro)
     (list 
-     (cons sair (cons (lambda () sala2))))
+     (cons sair (lambda () sala2)))
     )
   )
 (armazenar-elemento! 'sala21 sala21)
@@ -479,22 +644,25 @@
   (local
     "Você se encontra em um salão com um monstro e saídas para o Oeste e Sul."
     "Amarelo"
-    (list monstro1)
+    (list monstroSala22)
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons oeste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala20)
-                    "O monstro está bloqueando o caminho!"))
-     (cons sul (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala23)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons oeste (lambda () (if (eq? (coisa-estado monstroSala22) #f)
+                              sala20
+                              "O monstro está bloqueando o caminho?")))
+     (cons sul (lambda () (if (eq? (coisa-estado monstroSala22) #f)
+                              sala23
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala22 sala22)
 
 (define sala23
   (local 
     "Você se encontra em um salão vazio com saídas para o Norte e Oeste"
     "Amarelo"
-    ('())
+    '()
     (list
      (cons norte (lambda () sala22))
      (cons oeste (lambda () sala24)))))
@@ -504,8 +672,8 @@
   (local 
     "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: Norte e Leste."
     "Amarelo"
-    (list artefato1)
-    list(
+    '()
+    (list
       (cons norte (lambda () sala25))
       (cons leste (lambda () sala23)))))
 (armazenar-elemento! sala24 sala24)
@@ -514,23 +682,26 @@
   (local
     "Você se encontra em um salão com um monstro e saídas para o Leste e Sul."
     "Amarelo"
-    (list monstro1)
+    (list monstroSala25)
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons leste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala21)
-                    "O monstro está bloqueando o caminho!"))
-     (cons sul (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala24)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons leste (lambda () (if (eq? (coisa-estado monstroSala25) #f)
+                              sala21
+                              "O monstro está bloqueando o caminho?")))
+     (cons sul (lambda () (if (eq? (coisa-estado monstroSala25) #f)
+                              sala24
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala25 sala25)
 
 (define sala26
   (local 
     "Você se encontra em um salão vazio, com saídas para o: Oeste, Norte e Sul."
     "Vermelho"
-    ('())
-    list(
+    '()
+    (list
       (cons oeste (lambda () sala5))
       (cons norte (lambda () sala28))
       (cons sul (lambda () sala27)))))
@@ -540,7 +711,7 @@
   (local 
     "Você se encontra em um salão com um brilho no chão (teleporte) e saídas para: Norte."
     "Vermelho"
-    (list portal)
+    (list portalSala27)
     (list 
       (cons norte (lambda () sala26))
       (cons teleporte (lambda () sala16)))))
@@ -550,8 +721,8 @@
   (local 
     "Você se encontra em um salão vazio, com saídas para o: Norte Leste e Sul."
     "Vermelho"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala30))
       (cons norte (lambda () sala29))
       (cons sul (lambda () sala26)))))
@@ -561,8 +732,8 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Sul."
     "Vermelho"
-    (list dica)
-    list(
+    (list dicaSala29)
+    (list
       (cons sul (lambda () sala28)))))
 (armazenar-elemento! 'sala29 sala29)
 
@@ -570,8 +741,8 @@
   (local 
     "Você se encontra em um salão vazio, com saídas para o: Oeste, Sul e Leste."
     "Laranja"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala31))
       (cons oeste (lambda () sala28))
       (cons sul (lambda () sala32)))))
@@ -581,8 +752,8 @@
   (local
     "Você se encontra em um salão com um brilho no chão (teleporte) e saída para Oeste."
     "Laranja"
-    (list portal)
-    list(
+    (list portalSala31)
+    (list
       (cons oeste (lambda () sala30)))))
 (armazenar-elemento! 'sala31 sala31)
 
@@ -590,8 +761,8 @@
   (local 
     "Você se encontra em um salão vazio, com saídas para o: Norte, Leste e Sul."
     "Laranja"
-    ('())
-    list(
+    '()
+    (list
       (cons leste (lambda () sala34))
       (cons norte (lambda () sala30))
       (cons sul (lambda () sala33)))))
@@ -601,7 +772,7 @@
   (local
     "Você se encontra em um salão com escrituras no chão e saída para o Norte."
     "Laranja"
-    (list dica)
+    (list dicaSala33)
     (list
       (cons norte (lambda () sala32))
     )
@@ -612,26 +783,29 @@
 (define sala34
   (local
     "Você se encontra em um salão com um monstro e saídas para o: Norte Oeste e Leste."
-    (list monstro1)
+    (list monstroSala34)
     "Amarelo"
     (list
-     (cons voltar (lambda () local-anterior))
-     (cons norte (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala35)
-                    "O monstro está bloqueando o caminho!"))
-     (cons leste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala21)
-                    "O monstro está bloqueando o caminho!"))
-     (cons oeste (if (eq? (coisa-estado monstro1) 'morto)
-                    (lambda () sala32)
-                    "O monstro está bloqueando o caminho!")))))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
+     (cons norte (lambda () (if (eq? (coisa-estado monstroSala34) #f)
+                              sala35
+                              "O monstro está bloqueando o caminho?")))
+     (cons leste (lambda () (if (eq? (coisa-estado monstroSala34) #f)
+                              sala21
+                              "O monstro está bloqueando o caminho?")))
+     (cons oeste (lambda () (if (eq? (coisa-estado monstroSala34) #f)
+                              sala32
+                              "O monstro está bloqueando o caminho?"))))))
 (armazenar-elemento! 'sala34 sala34)
 
 (define sala35
   (local
     "Você se encontra em um salão com um pergaminho e saída para o Sul."
     "Amarelo"
-    (list dica)
+    (list dicaSala35)
     (list
       (cons sul (lambda () sala34))
     )
@@ -647,10 +821,13 @@
 (define pertences null) ; lista de coisas
 
 ;; Localização Atual:
-(define local-atual sala2) ; local
+(define local-atual sala1) ; local
 
 ;; Localização Anterior:
 (define local-anterior sala2) ; local
+
+;; Localização Temporária:
+(define local-temp sala1) ; local
 
 ;; Funções para serem usadas por respostas de verbos
 (define (tem-coisa? t)
@@ -679,8 +856,9 @@
 ;; Mostra o local atual
 (define (mostrar-local-atual)
   (printf "~a\n" (local-desc local-atual)) ; imprime o local
+  (printf "a cor da sala é: ~a\n" (local-cor local-atual)) ; imprime a cor da sala
   (for-each (lambda (coisa)      ; imprime as coisas do local
-              (printf "Tem um/a ~a here.\n" (coisa-nome coisa)))
+              (printf "Tem um/a ~a aqui.\n" (coisa-nome coisa)))
             (local-coisas local-atual)))
 
 ;; Loop principal
@@ -796,7 +974,7 @@
   (printf "Use `olhar' para olhar em volta.\n")
   (printf "Use `inventário' para ver o que você possui.\n")
   (printf "Use `save' ou `load' para salvar ou restaurar seu jogo.\n")
-  (printf "There are some other verbs, and you can name a thing after some verbs.\n"))
+  (printf "Existem outras ações que você pode usar, e itens que pode usar com elas.\n"))
 
 ;; ============================================================
 ;; Save and load
