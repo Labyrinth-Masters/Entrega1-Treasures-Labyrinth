@@ -1029,4 +1029,7 @@
 ;; ============================================================
 ;; Começar!
 
+(printf "Bem vindo ao TreasuresLabyrinth, aqui você irá enfrentar um teste de coragem e de
+sobrevivência, cuidado para não se perder, enfrente os montros e chegue ao tesouro para conquistar
+a glória!\n")
 (execute-local)
