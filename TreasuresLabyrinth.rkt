@@ -53,7 +53,7 @@
 (define usar (verbo (list 'usar 'use) "usar" #f))
 (armazenar-elemento! 'usar usar)
 
-(define entrar (verbo (list 'entrar 'entre) "entrar" #f))
+(define entrar (verbo (list 'entrar 'entre) "entrar" #t))
 (armazenar-elemento! 'entrar entrar)
 
 (define sair (verbo (list 'sair 'saia) "sair" #f))
@@ -122,27 +122,27 @@
 ;; Cada coisa cuida de um conjunto de verbos transitivos.
 
 
-(define artefato1
-  (coisa 'artefato1 
+(define artefatoSala2
+  (coisa 'artefato 
          #f 
          (list (cons pegar 
                     (lambda () 
-                      (if (tem-coisa? artefato1)
-                        "Você já possui esse artefato1."
+                      (if (tem-coisa? artefatoSala2)
+                        "Você já possui esse artefatoSala2."
                         (begin 
-                          (pegar-coisa! artefato1)
-                          "Você adquiriu o artefato1!")))))))
-(armazenar-elemento! 'artefato1 artefato1)
+                          (pegar-coisa! artefatoSala2)
+                          "Você adquiriu o artefatoSala2!")))))))
+(armazenar-elemento! 'artefatoSala2 artefatoSala2)
 
 (define monstroSala3
   (coisa 'minotauro
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala3) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala3) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala3 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala3) #f)
                             "Esse monstro já foi derrotado!"
@@ -154,10 +154,10 @@
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala4) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala4) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala4 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala4) #f)
                             "Esse monstro já foi derrotado!"
@@ -169,10 +169,10 @@
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala10) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala10) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala10 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala10) #f)
                             "Esse monstro já foi derrotado!"
@@ -184,10 +184,10 @@
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala22) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala22) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala22 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala22) #f)
                             "Esse monstro já foi derrotado!"
@@ -199,10 +199,10 @@
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala25) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala25) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala25 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala25) #f)
                             "Esse monstro já foi derrotado!"
@@ -214,10 +214,10 @@
          #t 
          (list (cons lutar 
                     (lambda () 
-                      (if (and (eq? (coisa-estado monstroSala34) #t) (tem-coisa? artefato1))
+                      (if (and (eq? (coisa-estado monstroSala34) #t) (tem-coisa? artefatoSala2))
                         (begin
                           (set-coisa-estado! monstroSala34 #f)
-                          (set-coisa-estado! artefato1 #f)
+                          (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
                         (if (eq? (coisa-estado monstroSala34) #f)
                             "Esse monstro já foi derrotado!"
@@ -287,6 +287,14 @@
                     "Você ganhou!"))))))
 (armazenar-elemento! 'tesouro tesouro)
 
+(define labirinto
+  (coisa 'labirinto
+         #f
+         (list
+          (cons entrar 
+                (lambda () sala2)))))
+(armazenar-elemento! 'labirinto labirinto)
+
 #| exemplo de coisa:
 (define door
   (coisa 'door
@@ -352,12 +360,19 @@
    (list (cons out (lambda () house-front)))))
 (record-element! 'room room)|#
 
+(define sala1
+  (local
+    "Você está na frente do labirinto.\nEntre e se aventure!"
+    "Não se aplica ao lado de fora."
+    (list labirinto)
+    '()))
+(armazenar-elemento! 'sala1 sala1)
 
 (define sala2
   (local
     "Você se encontra em um salão com um pedestal no meio e saídas para o Leste e Oeste."
     "Azul"
-    (list artefato1)
+    (list artefatoSala2)
     (list
      (cons leste (lambda () sala3))
      (cons oeste (lambda () sala4)))))
@@ -408,7 +423,7 @@
   (local
     "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: leste e sul."
     "Azul"
-    (list artefato1)
+    '()
     (list
      (cons leste (lambda () sala7))
      (cons sul   (lambda () sala5)))))
@@ -524,7 +539,7 @@
   (local 
     "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: oeste e norte."
     "Laranja"
-    (list artefato1)
+    '()
     (list
       (cons norte (lambda () sala18))
       (cons oeste (lambda () sala16)))))
@@ -601,7 +616,7 @@
   (local 
     "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: Norte e Leste."
     "Amarelo"
-    (list artefato1)
+    '()
     (list
       (cons norte (lambda () sala25))
       (cons leste (lambda () sala23)))))
@@ -744,7 +759,7 @@
 (define pertences null) ; lista de coisas
 
 ;; Localização Atual:
-(define local-atual sala2) ; local
+(define local-atual sala1) ; local
 
 ;; Localização Anterior:
 (define local-anterior sala2) ; local
@@ -894,7 +909,7 @@
   (printf "Use `olhar' para olhar em volta.\n")
   (printf "Use `inventário' para ver o que você possui.\n")
   (printf "Use `save' ou `load' para salvar ou restaurar seu jogo.\n")
-  (printf "There are some other verbs, and you can name a thing after some verbs.\n"))
+  (printf "Existem outras ações que você pode usar, e itens que pode usar com elas.\n"))
 
 ;; ============================================================
 ;; Save and load
