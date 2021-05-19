@@ -224,13 +224,45 @@
                             "Você não possui o artefato certo para lutar contra esse monstro")))))))
 (armazenar-elemento! 'monstroSala34 monstroSala34)
 
-(define dica
+(define dicaSala12
   (coisa 'dica
          #f
          (list (cons ler 
                     (lambda () 
-                        "Use os dedos para jogar.")))))
-(armazenar-elemento! 'dica dica)
+                        "A cor laranja é mais próxima ao tesouro que a cor azul.")))))
+(armazenar-elemento! 'dicaSala12 dicaSala12)
+
+(define dicaSala18
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Ir para o Oeste é uma ótima opção.")))))
+(armazenar-elemento! 'dicaSala18 dicaSala18)
+
+(define dicaSala29
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Siga a escada baixo, direita, baixo direita.")))))
+(armazenar-elemento! 'dicaSala29 dicaSala29)
+
+(define dicaSala33
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Procure a direção onde o Sol nasce.")))))
+(armazenar-elemento! 'dicaSala33 dicaSala33)
+
+(define dicaSala35
+  (coisa 'dica
+         #f
+         (list (cons ler 
+                    (lambda () 
+                        "Você está bastante próximo do final!!!")))))
+(armazenar-elemento! 'dicaSala35 dicaSala35)
 
 (define portalSala9
   (coisa 'portalAlfa
@@ -380,7 +412,7 @@
 
 (define sala3
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Oeste e Norte."
+    "Você se encontra em um salão barulhento com saídas para o Oeste e Norte."
     "Azul"
     (list monstroSala3)
     (list
@@ -395,7 +427,7 @@
 
 (define sala4
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Leste e Norte."
+    "Você se encontra em um salão silencioso com saídas para o Leste e Norte."
     "Azul"
     (list monstroSala4)
     (list
@@ -487,7 +519,7 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Norte."
     "Vermelho"
-    (list dica)
+    (list dicaSala12)
     (list
       (cons norte (lambda () sala11))
       (cons oeste (lambda () sala13))
@@ -549,7 +581,7 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Sul."
     "Laranja"
-    (list dica)
+    (list dicaSala18)
     (list
       (cons sul (lambda () sala17))
       (cons oeste (lambda () sala19))
@@ -673,7 +705,7 @@
   (local
     "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Sul."
     "Vermelho"
-    (list dica)
+    (list dicaSala29)
     (list
       (cons sul (lambda () sala28)))))
 (armazenar-elemento! 'sala29 sala29)
@@ -713,7 +745,7 @@
   (local
     "Você se encontra em um salão com escrituras no chão e saída para o Norte."
     "Laranja"
-    (list dica)
+    (list dicaSala33)
     (list
       (cons norte (lambda () sala32))
     )
@@ -743,7 +775,7 @@
   (local
     "Você se encontra em um salão com um pergaminho e saída para o Sul."
     "Amarelo"
-    (list dica)
+    (list dicaSala35)
     (list
       (cons sul (lambda () sala34))
     )
