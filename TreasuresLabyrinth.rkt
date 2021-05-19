@@ -141,6 +141,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala3) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala3 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala3 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -156,6 +158,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala4) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala4 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala4 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -171,6 +175,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala10) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala10 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala10 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -186,6 +192,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala22) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala22 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala22 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -201,6 +209,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala25) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala25 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala25 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -216,6 +226,8 @@
                     (lambda () 
                       (if (and (eq? (coisa-estado monstroSala34) #t) (tem-coisa? artefatoSala2))
                         (begin
+                          (set-local-coisas! local-atual
+                            (remq monstroSala34 (local-coisas local-atual)))
                           (set-coisa-estado! monstroSala34 #f)
                           (set-coisa-estado! artefatoSala2 #f)
                           "Você conseguiu derrotar o monstro!")
@@ -416,7 +428,10 @@
     "Azul"
     (list monstroSala3)
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons norte (lambda () (if (eq? (coisa-estado monstroSala3) #f)
                               sala8
                               "O monstro está bloqueando o caminho?")))
@@ -431,7 +446,10 @@
     "Azul"
     (list monstroSala4)
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons norte (lambda () (if (eq? (coisa-estado monstroSala4) #f)
                               sala5
                               "O monstro está bloqueando o caminho?")))
@@ -453,7 +471,7 @@
 
 (define sala6
   (local
-    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: leste e sul."
+    "Você se encontra em um salão com neblina com saídas para: leste e sul."
     "Azul"
     '()
     (list
@@ -463,7 +481,7 @@
 
 (define sala7
   (local
-    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Você se encontra em um salão de plantas com saídas para o Oeste e Sul."
     "Azul"
     '()
     (list
@@ -473,7 +491,7 @@
 
 (define sala8
   (local
-    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Você se encontra em um salão com água nos cantos com saídas para o Oeste e Sul."
     "Azul"
     '()
     (list
@@ -496,7 +514,10 @@
     "Vermelho"
     (list monstroSala10)
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons norte (lambda () (if (eq? (coisa-estado monstroSala10) #f)
                               sala7
                               "O monstro está bloqueando o caminho?")))
@@ -625,7 +646,10 @@
     "Amarelo"
     (list monstroSala22)
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons oeste (lambda () (if (eq? (coisa-estado monstroSala22) #f)
                               sala20
                               "O monstro está bloqueando o caminho?")))
@@ -660,7 +684,10 @@
     "Amarelo"
     (list monstroSala25)
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons leste (lambda () (if (eq? (coisa-estado monstroSala25) #f)
                               sala21
                               "O monstro está bloqueando o caminho?")))
@@ -759,7 +786,10 @@
     (list monstroSala34)
     "Amarelo"
     (list
-     (cons voltar (lambda () local-anterior))
+     (cons voltar (lambda () (begin
+                                (set! local-temp local-anterior)
+                                (set! local-anterior local-atual)
+                                local-temp)))
      (cons norte (lambda () (if (eq? (coisa-estado monstroSala34) #f)
                               sala35
                               "O monstro está bloqueando o caminho?")))
@@ -796,6 +826,9 @@
 ;; Localização Anterior:
 (define local-anterior sala2) ; local
 
+;; Localização Temporária:
+(define local-temp sala1) ; local
+
 ;; Funções para serem usadas por respostas de verbos
 (define (tem-coisa? t)
   (memq t pertences))
@@ -825,7 +858,7 @@
   (printf "~a\n" (local-desc local-atual)) ; imprime o local
   (printf "a cor da sala é: ~a\n" (local-cor local-atual)) ; imprime a cor da sala
   (for-each (lambda (coisa)      ; imprime as coisas do local
-              (printf "Tem um/a ~a here.\n" (coisa-nome coisa)))
+              (printf "Tem um/a ~a aqui.\n" (coisa-nome coisa)))
             (local-coisas local-atual)))
 
 ;; Loop principal
