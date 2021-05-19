@@ -510,7 +510,7 @@
 
 (define sala10
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Leste e Norte."
+    "Você se encontra em um salão com sons animalescos e saídas para o Leste e Norte."
     "Vermelho"
     (list monstroSala10)
     (list
@@ -538,7 +538,7 @@
 
 (define sala12
   (local
-    "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Norte."
+    "Você se encontra em um salão com um pergaminho na parede que pode ser lido, e saídas para o Oeste e Norte."
     "Vermelho"
     (list dicaSala12)
     (list
@@ -549,7 +549,7 @@
 
 (define sala13
   (local 
-    "Você se encontra em um salão vazio com saídas para o Leste e Norte."
+    "Você se encontra em um salão gelado com saídas para o Leste e Norte."
     "Vermelho"
     '()
     (list
@@ -559,7 +559,7 @@
 
 (define sala14
   (local 
-    "Você se encontra em um salão vazio com saídas para o Leste e Sul."
+    "Você se encontra em um salão com neve e saídas para o Leste e Sul."
     "Vermelho"
     '()
     (list
@@ -569,7 +569,7 @@
 
 (define sala15
   (local 
-    "Você se encontra em um salão vazio com saídas para o Oeste e Sul."
+    "Você se encontra em um salão com ecos e com saídas para o Oeste e Sul."
     "Laranja"
     '()
     (list
@@ -590,7 +590,7 @@
 
 (define sala17
   (local 
-    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: oeste e norte."
+    "Você se encontra em um salão com um pedestal, alem de visualizar saídas para: oeste e norte."
     "Laranja"
     '()
     (list
@@ -600,7 +600,7 @@
 
 (define sala18
   (local
-    "Você se encontra em um salão com um pergaminho na parede, o qual pode ser lido, e saídas para o Oeste e Sul."
+    "Você se encontra em um salão com escrituras na parede e saídas para o Oeste e Sul."
     "Laranja"
     (list dicaSala18)
     (list
@@ -611,7 +611,7 @@
 
 (define sala19
   (local 
-    "Você se encontra em um salão vazio com saídas para o Leste e Sul."
+    "Você se encontra em um salão escuro com saídas para o Leste e Sul."
     "Laranja"
     '()
     (list
@@ -621,7 +621,7 @@
 
 (define sala20
   (local 
-    "Você se encontra em um salão vazio, com saídas para o: Norte e Leste."
+    "Você se encontra em um salão escuro com algumas velas, com saídas para o: Norte e Leste."
     "Amarelo"
     '()
     (list
@@ -642,7 +642,7 @@
 
 (define sala22
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Oeste e Sul."
+    "Você se encontra em um salão bem iluminado por velas e saídas para o Oeste e Sul."
     "Amarelo"
     (list monstroSala22)
     (list
@@ -660,7 +660,7 @@
 
 (define sala23
   (local 
-    "Você se encontra em um salão vazio com saídas para o Norte e Oeste"
+    "Você se encontra em um salão com insetos nas paredes com saídas para o Norte e Oeste"
     "Amarelo"
     '()
     (list
@@ -670,7 +670,7 @@
 
 (define sala24
   (local 
-    "Você se encontra em um salão com um pedestal, o qual detem um artefato, alem de visualizar saídas para: Norte e Leste."
+    "Você se encontra em um salão com um pedestal e saídas para: Norte e Leste."
     "Amarelo"
     '()
     (list
@@ -680,7 +680,7 @@
 
 (define sala25
   (local
-    "Você se encontra em um salão com um monstro e saídas para o Leste e Sul."
+    "Você se encontra em um salão iluminado por buracos no teto com saídas para o Leste e Sul."
     "Amarelo"
     (list monstroSala25)
     (list
