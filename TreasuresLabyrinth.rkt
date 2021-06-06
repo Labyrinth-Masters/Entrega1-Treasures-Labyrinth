@@ -131,7 +131,7 @@
                         "Você já possui esse artefatoSala2."
                         (begin 
                           (pegar-coisa! artefatoSala2)
-                          "Você adquiriu o artefatoSala2!")))))))
+                          "Você adquiriu o artefato!")))))))
 (armazenar-elemento! 'artefatoSala2 artefatoSala2)
 
 (define monstroSala3
